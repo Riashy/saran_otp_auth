@@ -1,7 +1,7 @@
 {
     'name': 'Saran OTP OTH',
     'summary': 'OTP authentication for backend login, website signup, and website checkout using Victory Link SMS.',
-    'version': '17.0.1.0.0',
+    'version': '19.0.1.0.0',
     'category': 'Website/Website',
     'author': 'OpenAI',
     'license': 'LGPL-3',
