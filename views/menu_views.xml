@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <menuitem id="menu_saran_otp_root" name="OTP Authentication" sequence="90" groups="base.group_system"/>
-    <menuitem id="menu_saran_otp_codes" name="OTP Codes" parent="menu_saran_otp_root" action="action_saran_otp_code" sequence="10" groups="base.group_system"/>
-</odoo>
