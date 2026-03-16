@@ -1,0 +1,28 @@
+{
+    'name': 'Saran OTP Auth',
+    'summary': 'OTP authentication for Odoo 19 using Victory Link SMS',
+    'version': '19.0.1.0.0',
+    'category': 'Tools',
+    'author': 'OpenAI',
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+        'web',
+        'website',
+        'auth_signup',
+        'portal',
+        'website_sale',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_cron.xml',
+        'views/res_config_settings_views.xml',
+        'views/res_users_views.xml',
+        'views/res_partner_views.xml',
+        'views/otp_code_views.xml',
+        'views/menu_views.xml',
+        'views/templates.xml',
+    ],
+    'installable': True,
+    'application': False,
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_saran_otp_auth" model="ir.ui.view">
+        <field name="name">res.partner.form.saran.otp.auth</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="OTP Verification">
+                    <field name="otp_mobile_verified"/>
+                    <field name="otp_mobile_last_verified_at" readonly="1"/>
+                    <field name="otp_mobile_normalized" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

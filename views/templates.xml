@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="web_login_inherit_saran_otp_auth" inherit_id="web.login" name="Add OTP login link">
+        <xpath expr="//form" position="after">
+            <div class="mt-3 text-center">
+                <a href="/otp/login">Login with OTP</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="auth_signup_inherit_saran_otp_auth" inherit_id="auth_signup.signup" name="Add OTP signup link">
+        <xpath expr="//form" position="after">
+            <div class="mt-3 text-center">
+                <a href="/otp/signup">Sign up with mobile OTP</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="otp_login_template" name="OTP Login Page">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-7">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+                                <h2 class="h4 mb-3">OTP Login</h2>
+                                <t t-if="message"><div class="alert alert-success" t-esc="message"/></t>
+                                <t t-if="error"><div class="alert alert-danger" t-esc="error"/></t>
+                                <t t-if="otp_stage == 'verify'">
+                                    <form action="/otp/login/verify" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">Mobile</label>
+                                            <input type="text" name="mobile" class="form-control" t-att-value="mobile" readonly="readonly"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Verification Code</label>
+                                            <input type="text" name="otp_code" class="form-control" required="required"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Verify and Login</button>
+                                    </form>
+                                </t>
+                                <t t-else="">
+                                    <form action="/otp/login/send" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">Mobile</label>
+                                            <input type="text" name="mobile" class="form-control" t-att-value="mobile" required="required"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Send Verification Code</button>
+                                    </form>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="otp_signup_template" name="OTP Signup Page">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+                                <h2 class="h4 mb-3">Sign Up with OTP</h2>
+                                <t t-if="message"><div class="alert alert-success" t-esc="message"/></t>
+                                <t t-if="error"><div class="alert alert-danger" t-esc="error"/></t>
+                                <t t-set="sv" t-value="signup_values or {}"/>
+                                <t t-if="otp_stage == 'verify'">
+                                    <form action="/otp/signup/verify" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">Mobile</label>
+                                            <input type="text" name="mobile" class="form-control" t-att-value="mobile" readonly="readonly"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Verification Code</label>
+                                            <input type="text" name="otp_code" class="form-control" required="required"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Verify and Create Account</button>
+                                    </form>
+                                </t>
+                                <t t-else="">
+                                    <form action="/otp/signup/send" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" name="name" class="form-control" t-att-value="sv.get('name','')" required="required"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Email / Login</label>
+                                            <input type="email" name="login" class="form-control" t-att-value="sv.get('login','')" required="required"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Mobile</label>
+                                            <input type="text" name="mobile" class="form-control" t-att-value="sv.get('mobile','')" required="required"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" required="required"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Confirm Password</label>
+                                            <input type="password" name="confirm_password" class="form-control" required="required"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Send Verification Code</button>
+                                    </form>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="shop_checkout_otp_template" name="Checkout OTP Verification">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+                                <h2 class="h4 mb-3">Verify Mobile Before Payment</h2>
+                                <p class="text-muted">Complete mobile verification to continue to payment.</p>
+                                <t t-if="otp_error"><div class="alert alert-danger" t-esc="otp_error"/></t>
+                                <t t-if="otp_sent"><div class="alert alert-success">A verification code has been sent.</div></t>
+                                <t t-if="otp_verified"><div class="alert alert-success">Mobile verified. You can continue to payment.</div></t>
+                                <form action="/shop/otp/send" method="post" class="mb-4">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label class="form-label">Mobile</label>
+                                        <input type="text" name="mobile" class="form-control" t-att-value="mobile" required="required"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-primary">Send Verification Code</button>
+                                </form>
+                                <form action="/shop/otp/verify" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label class="form-label">Mobile</label>
+                                        <input type="text" name="mobile" class="form-control" t-att-value="mobile" required="required"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Verification Code</label>
+                                        <input type="text" name="otp_code" class="form-control" required="required"/>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary">Verify</button>
+                                        <a href="/shop/cart" class="btn btn-secondary">Back to Cart</a>
+                                        <t t-if="otp_verified">
+                                            <a href="/shop/payment" class="btn btn-success">Continue to Payment</a>
+                                        </t>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

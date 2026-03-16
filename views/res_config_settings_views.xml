@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_saran_otp_auth" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.saran.otp.auth</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="OTP Authentication" name="saran_otp_auth" groups="base.group_system">
+                    <block title="General">
+                        <setting string="Enable OTP globally">
+                            <field name="saran_otp_enabled"/>
+                        </setting>
+                        <setting string="Enable OTP login">
+                            <field name="saran_otp_login_enabled"/>
+                        </setting>
+                        <setting string="Enable OTP signup">
+                            <field name="saran_otp_signup_enabled"/>
+                        </setting>
+                        <setting string="Enable OTP checkout">
+                            <field name="saran_otp_checkout_enabled"/>
+                        </setting>
+                    </block>
+                    <block title="Victory Link Gateway">
+                        <setting string="Gateway Username">
+                            <field name="saran_otp_gateway_username" password="False"/>
+                        </setting>
+                        <setting string="Gateway Password">
+                            <field name="saran_otp_gateway_password" password="True"/>
+                        </setting>
+                        <setting string="Sender Name">
+                            <field name="saran_otp_gateway_sender"/>
+                        </setting>
+                        <setting string="Send URL">
+                            <field name="saran_otp_send_url"/>
+                        </setting>
+                        <setting string="Check Credit URL">
+                            <field name="saran_otp_check_credit_url"/>
+                        </setting>
+                        <setting string="Default Country Code">
+                            <field name="saran_otp_default_country_code"/>
+                        </setting>
+                    </block>
+                    <block title="OTP Policy">
+                        <setting string="OTP Length">
+                            <field name="saran_otp_length"/>
+                        </setting>
+                        <setting string="OTP TTL (minutes)">
+                            <field name="saran_otp_ttl_minutes"/>
+                        </setting>
+                        <setting string="Resend cooldown (seconds)">
+                            <field name="saran_otp_resend_cooldown_seconds"/>
+                        </setting>
+                        <setting string="Maximum verification attempts">
+                            <field name="saran_otp_max_attempts"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
